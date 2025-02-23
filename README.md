@@ -19,8 +19,9 @@ If a score is outside this range, it will be ignored and a warning will be displ
 
 ### CSV Format
 The CSV files should be in the following format:
+```
 | Team Number | Team Name | Design (/10) | Originality (/10) | Impact (/10) | Technical (/10) | Notes/Comments |
-
+```
 ## License
 This script is licensed under the GNU General Public License v3.0.
 
