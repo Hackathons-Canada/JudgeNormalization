@@ -82,6 +82,17 @@ def load_and_combine_csvs(folder_path: str, min_reviews: int) -> pd.DataFrame:
             df = pd.read_csv(filename, skiprows=[1])
             df = df.dropna(how='all')
             df = normalize_column_names(df)
+
+            # Validate that a judge does not store a team more than once
+            if df['team number'].duplicated().any():
+                # print out the duplicated rows and the file name
+                duplicated_rows = df[df['team number'].duplicated()]
+                click.echo(f"Duplicated rows in {filename}:")
+                click.echo(duplicated_rows)
+                if not click.confirm("\nContinue despite duplicate team IDs?"):
+                    raise click.ClickException("Aborting due to duplicate team IDs")
+
+
             judge_name = os.path.basename(filename).replace('.csv', '')
             df['judge'] = judge_name
             dfs.append(df)
